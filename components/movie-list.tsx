@@ -3,19 +3,19 @@ import type { Movie } from "@/types/tmdb";
 import { Suspense } from "react";
 
 type Props = {
-  movies: Movie[];
+	movies: Movie[];
 };
 
 export function MovieList({ movies }: Props) {
-  return (
-    <div className="w-full">
-      <Suspense fallback={"loading..."}>
-        <div className="grid-list">
-          {movies.map((movie: Movie) => (
-            <MovieListCard key={movie.id} {...movie} />
-          ))}
-        </div>
-      </Suspense>
-    </div>
-  );
+	return (
+		<div className="w-full">
+			<Suspense fallback={"loading..."}>
+				<div className="grid-list">
+					{movies.map((movie: Movie) => (
+						<MovieListCard key={movie.id} movie={movie} />
+					))}
+				</div>
+			</Suspense>
+		</div>
+	);
 }
