@@ -1,3 +1,3 @@
 export default function Records() {
-	return <div>Records</div>;
+  return <div>Records</div>;
 }
