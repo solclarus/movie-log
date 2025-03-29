@@ -25,7 +25,7 @@ export function MovieListCard({ movie }: Props) {
 							<ImageOff size={40} className="text-gray-500" />
 						</div>
 					)}
-					<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity hover:opacity-100">
+					<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
 						<div className="absolute bottom-0 p-3 text-white">
 							{movie.vote_average > 0 && (
 								<div className="flex items-center gap-1">
