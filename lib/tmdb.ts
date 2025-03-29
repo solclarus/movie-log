@@ -24,17 +24,19 @@ const fetchFromTMDB = async (endpoint: string) => {
 };
 
 export const getNowPlayingMovies = cache(async () => {
-	const data = await fetchFromTMDB("movie/now_playing");
+	const data = await fetchFromTMDB(
+		"movie/now_playing?language=ja-JP&region=JP",
+	);
 	return data ? data.results : [];
 });
 
 export const getPopularMovies = cache(async () => {
-	const data = await fetchFromTMDB("movie/popular");
+	const data = await fetchFromTMDB("movie/popular?language=ja-JP&region=JP");
 	return data ? data.results : [];
 });
 
 export const getSimilarMovies = cache(async (id: string) => {
-	const data = await fetchFromTMDB(`movie/${id}/similar`);
+	const data = await fetchFromTMDB(`movie/${id}/similar?language=ja-JP`);
 	return data ? data.results : [];
 });
 
@@ -48,11 +50,11 @@ export const searchMovies = cache(async (query: string, page: number) => {
 });
 
 export const getMovie = cache(async (id: string) => {
-	return await fetchFromTMDB(`movie/${id}`);
+	return await fetchFromTMDB(`movie/${id}?language=ja-JP`);
 });
 
 export const getMovieCredits = cache(async (id: string) => {
-	return await fetchFromTMDB(`movie/${id}/credits`);
+	return await fetchFromTMDB(`movie/${id}/credits?language=ja-JP`);
 });
 
 export const countPages = cache(async (query: string) => {
@@ -63,6 +65,6 @@ export const countPages = cache(async (query: string) => {
 });
 
 export const getReviews = cache(async (id: string) => {
-	const data = await fetchFromTMDB(`movie/${id}/reviews`);
+	const data = await fetchFromTMDB(`movie/${id}/reviews?language=ja-JP`);
 	return data ? data.results : [];
 });

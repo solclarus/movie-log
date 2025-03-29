@@ -1,18 +1,18 @@
-import type { Cast } from "@/types/tmdb";
+import type { Crew } from "@/types/tmdb";
 import { ImageOff } from "lucide-react";
 import Image from "next/image";
 
 type Props = {
-	cast: Cast;
+	crew: Crew;
 };
 
-export function CastCard({ cast }: Props) {
+export function CrewCard({ crew }: Props) {
 	return (
 		<div className="relative aspect-[2/3] overflow-hidden rounded-md border bg-muted">
-			{cast.profile_path ? (
+			{crew.profile_path ? (
 				<Image
-					alt={cast.name}
-					src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+					alt={crew.name}
+					src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
 					width={200}
 					height={300}
 					className="h-full w-full rounded-md"
@@ -24,8 +24,8 @@ export function CastCard({ cast }: Props) {
 			)}
 			<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
 				<div className="absolute bottom-0 p-3 text-white">
-					<h2 className="line-clamp-1 text-sm font-bold">{cast.name}</h2>
-					<h2 className="line-clamp-1 text-xs">{cast.character}</h2>
+					<h2 className="line-clamp-1 text-sm font-bold">{crew.name}</h2>
+					<h2 className="line-clamp-1 text-xs">{crew.job}</h2>
 				</div>
 			</div>
 		</div>
