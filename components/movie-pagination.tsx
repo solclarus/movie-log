@@ -20,6 +20,8 @@ export function MoviePagination({ totalPages }: Props) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
 
+  if (totalPages <= 1) return null;
+
   const createPageURL = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
@@ -44,7 +46,6 @@ export function MoviePagination({ totalPages }: Props) {
         );
       }
     } else {
-      // Always show first page
       pageItems.push(
         <PaginationItem key={1}>
           <PaginationLink href={createPageURL(1)} isActive={currentPage === 1}>
@@ -52,8 +53,6 @@ export function MoviePagination({ totalPages }: Props) {
           </PaginationLink>
         </PaginationItem>,
       );
-
-      // Show ellipsis if needed
       if (currentPage > 3) {
         pageItems.push(
           <PaginationItem key="ellipsis-start">
@@ -62,7 +61,6 @@ export function MoviePagination({ totalPages }: Props) {
         );
       }
 
-      // Show current page and surrounding pages
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
 
