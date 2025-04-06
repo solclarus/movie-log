@@ -27,7 +27,7 @@ export function SearchBox({ placeholder = "映画を検索..." }) {
       params.delete("query");
     }
     replace(`/search?${params.toString()}`);
-  }, 300);
+  }, 500);
 
   // 検索をクリア
   const clearSearch = () => {
@@ -38,7 +38,7 @@ export function SearchBox({ placeholder = "映画を検索..." }) {
   };
 
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full max-w-md p-2">
       <Search className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 h-[18px] w-[18px] text-gray-500" />
       <Input
         name="query"

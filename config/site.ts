@@ -1,4 +1,11 @@
-import { Inbox, Search, Sparkles, Theater } from "lucide-react";
+import {
+  CalendarIcon,
+  HeartIcon,
+  PlayIcon,
+  SquareTerminalIcon,
+  StarIcon,
+  VideoIcon,
+} from "lucide-react";
 
 export const siteConfig = {
   name: "Cinemento",
@@ -14,24 +21,63 @@ export const siteConfig = {
   },
   navigation: [
     {
-      title: "Search",
-      url: "/search",
-      icon: Search,
+      title: "Movie",
+      icon: VideoIcon,
+      items: [
+        {
+          title: "Now Playing",
+          url: "/movie?category=now-playing",
+          icon: PlayIcon,
+        },
+        {
+          title: "Popular",
+          url: "/movie?category=popular",
+          icon: HeartIcon,
+        },
+        {
+          title: "Top Rated",
+          url: "/movie?category=top-rated",
+          icon: StarIcon,
+        },
+        {
+          title: "Upcoming",
+          url: "/movie?category=upcoming",
+          icon: CalendarIcon,
+        },
+      ],
     },
     {
-      title: "Records",
-      url: "/records",
-      icon: Sparkles,
+      title: "Playground",
+      icon: SquareTerminalIcon,
+      items: [
+        {
+          title: "History",
+          url: "#",
+        },
+        {
+          title: "Starred",
+          url: "#",
+        },
+        {
+          title: "Settings",
+          url: "#",
+        },
+      ],
     },
-    {
-      title: "Movies",
-      url: "/movies",
-      icon: Theater,
-    },
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: Inbox,
-    },
+    // {
+    //   title: "Search",
+    //   url: "/search",
+    //   icon: Search,
+    // },
+    // {
+    //   title: "Records",
+    //   url: "/records",
+    //   icon: Sparkles,
+    // },
+    // {
+    //   title: "Dashboard",
+    //   url: "/dashboard",
+    //   icon: Inbox,
+    // },
   ],
 };

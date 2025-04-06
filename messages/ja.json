@@ -1,0 +1,40 @@
+{
+  "Movie": {
+    "List": {
+      "search": {
+        "placeholder": "映画を検索...",
+        "noResults": "結果が見つかりませんでした。",
+        "results": "{count} 件の映画が見つかりました。"
+      },
+      "categories": {
+        "popular": "人気",
+        "topRated": "評価の高い",
+        "upcoming": "公開予定",
+        "nowPlaying": "上映中"
+      }
+    },
+    "Detail": {
+      "buttons": {
+        "addToWatchlist": "ウォッチリストに追加",
+        "removeFromWatchlist": "ウォッチリストから削除",
+        "addToFavorites": "お気に入りに追加",
+        "removeFromFavorites": "お気に入りから削除"
+      },
+      "tabs": {
+        "overview": {
+          "title": "概要",
+          "releaseDate": "公開日",
+          "runtime": "上映時間",
+          "productionCompanies": "制作会社",
+          "productionCountries": "制作国",
+          "languages": "言語",
+          "budget": "予算",
+          "revenue": "興行収入"
+        },
+        "cast": "キャスト",
+        "crew": "スタッフ",
+        "recommendations": "おすすめ"
+      }
+    }
+  }
+}
