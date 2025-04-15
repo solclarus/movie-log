@@ -2,8 +2,8 @@ import {
 	CalendarIcon,
 	HeartIcon,
 	PlayIcon,
-	SquareTerminalIcon,
 	StarIcon,
+	UserIcon,
 	VideoIcon,
 } from "lucide-react";
 
@@ -47,37 +47,14 @@ export const siteConfig = {
 			],
 		},
 		{
-			title: "Playground",
-			icon: SquareTerminalIcon,
+			title: "Person",
+			icon: UserIcon,
 			items: [
 				{
-					title: "History",
-					url: "#",
-				},
-				{
-					title: "Starred",
-					url: "#",
-				},
-				{
-					title: "Settings",
-					url: "#",
+					title: "Popular",
+					url: "/person?page=1",
 				},
 			],
 		},
-		// {
-		//   title: "Search",
-		//   url: "/search",
-		//   icon: Search,
-		// },
-		// {
-		//   title: "Records",
-		//   url: "/records",
-		//   icon: Sparkles,
-		// },
-		// {
-		//   title: "Dashboard",
-		//   url: "/dashboard",
-		//   icon: Inbox,
-		// },
 	],
 };

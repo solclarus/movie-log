@@ -2,6 +2,7 @@ import { MovieInfo } from "@/components/movie-info";
 import type { MovieDetails } from "@/types/tmdb";
 import { ImageOff } from "lucide-react";
 import Image from "next/image";
+import { ReadMore } from "./read-more";
 
 type Props = {
 	movie: MovieDetails;
@@ -42,7 +43,7 @@ export function MovieHero({ movie }: Props) {
 					<MovieInfo movie={movie} />
 				</div>
 			</div>
-			<p className="mb-6 text-muted-foreground">{movie.overview}</p>
+			{movie.overview && <ReadMore text={movie.overview} />}
 		</div>
 	);
 }
