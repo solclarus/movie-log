@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -24,8 +18,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   watchLogs     Record[]
-
-  passkeys Passkey[]
+  passkeys      Passkey[]
 
   @@unique([email])
   @@map("user")
@@ -92,43 +85,22 @@ model Passkey {
   @@map("passkey")
 }
 
-model Movie {
-  id            Int       @id
-  title         String
-  originalTitle String?
-  posterPath    String?
-  backdropPath  String?
-  overview      String?
-  releaseDate   DateTime?
-  genres        Genre[]   @relation("MovieGenres")
-  watchLogs     Record[]
-
-  @@map("movie")
-}
-
-model Genre {
-  id     Int     @id
-  name   String
-  movies Movie[] @relation("MovieGenres")
-
-  @@map("genre")
-}
-
 model Record {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  movie     Movie    @relation(fields: [movieId], references: [id])
-  movieId   Int
-  watchDate DateTime
-  rating    Int?
-  review    String?
-  isPublic  Boolean  @default(true)
-  venue     String?
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tmdbMovieId Int
+  watchDate   DateTime
+  rating      Int?
+  review      String?
+  isPublic    Boolean  @default(true)
+  venue       String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
-  @@index([movieId])
+  @@index([tmdbMovieId])
   @@map("record")
 }

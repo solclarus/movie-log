@@ -1,40 +1,40 @@
 {
-  "Movie": {
-    "List": {
-      "search": {
-        "placeholder": "Search movies...",
-        "noResults": "No results found.",
-        "results": "{count} results found."
-      },
-      "categories": {
-        "popular": "Popular",
-        "topRated": "Top Rated",
-        "upcoming": "Upcoming",
-        "nowPlaying": "Now Playing"
-      }
-    },
-    "Detail": {
-      "buttons": {
-        "addToWatchlist": "Add to Watchlist",
-        "removeFromWatchlist": "Remove from Watchlist",
-        "addToFavorites": "Add to Favorites",
-        "removeFromFavorites": "Remove from Favorites"
-      },
-      "tabs": {
-        "overview": {
-          "title": "Overview",
-          "releaseDate": "Release Date",
-          "runtime": "Runtime",
-          "productionCompanies": "Production Companies",
-          "productionCountries": "Production Countries",
-          "languages": "Languages",
-          "budget": "Budget",
-          "revenue": "Box Office"
-        },
-        "cast": "Cast",
-        "crew": "Crew",
-        "recommendations": "Recommendation"
-      }
-    }
-  }
+	"Movie": {
+		"List": {
+			"search": {
+				"placeholder": "Search movies...",
+				"noResults": "No results found.",
+				"results": "{count} results found."
+			},
+			"categories": {
+				"popular": "Popular",
+				"topRated": "Top Rated",
+				"upcoming": "Upcoming",
+				"nowPlaying": "Now Playing"
+			}
+		},
+		"Detail": {
+			"buttons": {
+				"addToWatchlist": "Add to Watchlist",
+				"removeFromWatchlist": "Remove from Watchlist",
+				"addToFavorites": "Add to Favorites",
+				"removeFromFavorites": "Remove from Favorites"
+			},
+			"tabs": {
+				"overview": {
+					"title": "Overview",
+					"releaseDate": "Release Date",
+					"runtime": "Runtime",
+					"productionCompanies": "Production Companies",
+					"productionCountries": "Production Countries",
+					"languages": "Languages",
+					"budget": "Budget",
+					"revenue": "Box Office"
+				},
+				"cast": "Cast",
+				"crew": "Crew",
+				"recommendations": "Recommendation"
+			}
+		}
+	}
 }
