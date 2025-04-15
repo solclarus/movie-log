@@ -19,7 +19,6 @@ export default async function MovieDetail({ params }: Props) {
 	return (
 		<>
 			<MovieHero movie={movie} />
-			{/* <MovieRecordButtons movie={movie} /> */}
 			<MovieTabs
 				movie={movie}
 				credits={credits}

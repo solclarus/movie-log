@@ -11,8 +11,6 @@ import {
 import {
 	Sidebar,
 	SidebarContent,
-	SidebarGroup,
-	SidebarGroupLabel,
 	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
@@ -50,51 +48,41 @@ export function SidebarLeft() {
 			</SidebarHeader>
 			<SidebarContent>
 				<SidebarMenu>
-					<SidebarGroup>
-						<SidebarGroupLabel>Movie</SidebarGroupLabel>
-						<SidebarMenu>
-							{siteConfig.navigation.map((item) => (
-								<Collapsible
-									key={item.title}
-									asChild
-									className="group/collapsible"
-									defaultOpen={true}
-								>
-									<SidebarMenuItem>
-										<CollapsibleTrigger asChild>
-											<SidebarMenuButton tooltip={item.title}>
-												{item.icon && <item.icon />}
-												<span>{item.title}</span>
-												<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-											</SidebarMenuButton>
-										</CollapsibleTrigger>
-										<CollapsibleContent>
-											<SidebarMenuSub>
-												{item.items?.map((subItem) => (
-													<SidebarMenuSubItem key={subItem.title}>
-														<SidebarMenuSubButton asChild>
-															<a href={subItem.url}>
-																<span>{subItem.title}</span>
-															</a>
-														</SidebarMenuSubButton>
-													</SidebarMenuSubItem>
-												))}
-											</SidebarMenuSub>
-										</CollapsibleContent>
-									</SidebarMenuItem>
-								</Collapsible>
-							))}
-						</SidebarMenu>
-					</SidebarGroup>
-					<SidebarGroup>
-						<SidebarGroupLabel>Settings</SidebarGroupLabel>
-						<SidebarMenu>
-							<div className="flex items-center gap-2">
-								<ThemeSwitcher />
-								<LocaleSwitcher />
-							</div>
-						</SidebarMenu>
-					</SidebarGroup>
+					{siteConfig.navigation.map((item) => (
+						<Collapsible
+							key={item.title}
+							asChild
+							className="group/collapsible"
+							defaultOpen={true}
+						>
+							<SidebarMenuItem>
+								<CollapsibleTrigger asChild>
+									<SidebarMenuButton tooltip={item.title}>
+										{item.icon && <item.icon />}
+										<span>{item.title}</span>
+										<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+									</SidebarMenuButton>
+								</CollapsibleTrigger>
+								<CollapsibleContent>
+									<SidebarMenuSub>
+										{item.items?.map((subItem) => (
+											<SidebarMenuSubItem key={subItem.title}>
+												<SidebarMenuSubButton asChild>
+													<a href={subItem.url}>
+														<span>{subItem.title}</span>
+													</a>
+												</SidebarMenuSubButton>
+											</SidebarMenuSubItem>
+										))}
+									</SidebarMenuSub>
+								</CollapsibleContent>
+							</SidebarMenuItem>
+						</Collapsible>
+					))}
+					<div className="flex items-center gap-2">
+						<ThemeSwitcher />
+						<LocaleSwitcher />
+					</div>
 				</SidebarMenu>
 			</SidebarContent>
 			<SidebarRail />

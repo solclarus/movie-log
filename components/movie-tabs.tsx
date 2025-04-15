@@ -1,16 +1,6 @@
 "use client";
-
-import { MovieList } from "@/components/movie-list";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { aggregatePerson } from "@/lib/tmdb/lib";
+import { cn } from "@/lib/utils";
 import type {
 	Credits,
 	Movie,
@@ -20,6 +10,7 @@ import type {
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { MovieList } from "./movie-list";
 import { PersonList } from "./person-list";
 
 type Props = {
@@ -29,7 +20,6 @@ type Props = {
 };
 
 export function MovieTabs({ movie, credits, recommendations }: Props) {
-	const isMobile = useIsMobile();
 	const [activeTab, setActiveTab] = useState("about");
 	const t = useTranslations("Movie.Detail");
 
@@ -42,10 +32,10 @@ export function MovieTabs({ movie, credits, recommendations }: Props) {
 	const recommendationMovies = recommendations?.results || [];
 
 	const sections = [
-		{ id: "about", label: "概要" },
-		{ id: "cast", label: "キャスト" },
-		{ id: "crew", label: "スタッフ" },
-		{ id: "recommendations", label: "おすすめ" },
+		{ id: "about", label: t("tabs.overview.title") },
+		{ id: "cast", label: t("tabs.cast") },
+		{ id: "crew", label: t("tabs.crew") },
+		{ id: "recommendations", label: t("tabs.recommendations") },
 	];
 
 	const movieInfo = [
@@ -87,39 +77,51 @@ export function MovieTabs({ movie, credits, recommendations }: Props) {
 
 	return (
 		<div>
-			{isMobile ? (
-				<div className="flex items-center justify-between mb-4">
-					<Select value={activeTab} onValueChange={handleTabChange}>
-						<SelectTrigger defaultValue={"about"}>
-							<SelectValue placeholder={"概要"} />
-						</SelectTrigger>
-						<SelectContent>
-							{sections.map(({ id, label }) => (
-								<SelectItem key={id} value={id}>
-									{label}
-								</SelectItem>
+			{/* <Tabs
+				defaultValue="about"
+				value={activeTab}
+				onValueChange={handleTabChange}
+				className="w-full"
+			>
+				<TabsList className="w-full p-0 bg-background justify-start border-b rounded-none">
+					{sections.map((section) => (
+						<TabsTrigger
+							key={section.id}
+							value={section.id}
+							className="rounded-none bg-background h-full data-[state=active]:shadow-none border-b-2 border-transparent data-[state=active]:border-primary"
+						>
+							{section.label}
+						</TabsTrigger>
+					))}
+				</TabsList>
+			</Tabs> */}
+			<div className="sticky top-0 z-10">
+				<div className="relative max-w-5xl">
+					<div className="flex overflow-x-auto scrollbar-hide">
+						<div className="flex min-w-full">
+							{sections.map((tab) => (
+								<button
+									key={tab.id}
+									type="button"
+									onClick={() => handleTabChange(tab.id)}
+									className={cn(
+										"relative flex-1 whitespace-nowrap px-4 py-4 text-sm font-medium transition-colors hover:bg-muted/30 sm:min-w-[100px]",
+										activeTab === tab.id
+											? "text-foreground"
+											: "text-muted-foreground",
+									)}
+								>
+									{tab.label}
+									{activeTab === tab.id && (
+										<div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+									)}
+								</button>
 							))}
-						</SelectContent>
-					</Select>
+						</div>
+					</div>
 				</div>
-			) : (
-				<Tabs
-					defaultValue="about"
-					value={activeTab}
-					onValueChange={handleTabChange}
-					className="w-full"
-				>
-					<TabsList className="mb-4">
-						{sections.map(({ id, label }) => (
-							<TabsTrigger key={id} value={id}>
-								{label}
-							</TabsTrigger>
-						))}
-					</TabsList>
-				</Tabs>
-			)}
-
-			<div>
+			</div>
+			<div className="pt-4">
 				{activeTab === "about" &&
 					(movie ? (
 						<ul className="space-y-3">
