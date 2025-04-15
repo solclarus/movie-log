@@ -7,30 +7,30 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+	const { theme, setTheme } = useTheme();
+	const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-  const toggleTheme = () => {
-    const currentTheme = theme === "dark" ? "light" : "dark";
-    setTheme(currentTheme);
-  };
+	const toggleTheme = () => {
+		const currentTheme = theme === "dark" ? "light" : "dark";
+		setTheme(currentTheme);
+	};
 
-  if (!mounted) {
-    return null;
-  }
+	if (!mounted) {
+		return null;
+	}
 
-  return (
-    <Button
-      onClick={toggleTheme}
-      variant="outline"
-      size="icon"
-      className="shrink-0 rounded-full"
-    >
-      {theme === "light" ? <Sun size={16} /> : <Moon size={16} />}
-    </Button>
-  );
+	return (
+		<Button
+			onClick={toggleTheme}
+			variant="outline"
+			size="icon"
+			className="shrink-0 rounded-full"
+		>
+			{theme === "light" ? <Sun size={16} /> : <Moon size={16} />}
+		</Button>
+	);
 };
