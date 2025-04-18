@@ -95,7 +95,7 @@ export function MovieTabs({ movie, credits, recommendations }: Props) {
 					))}
 				</TabsList>
 			</Tabs> */}
-			<div className="sticky top-0 z-10">
+			<div className="sticky top-0 z-10 bg-background">
 				<div className="relative max-w-5xl">
 					<div className="flex overflow-x-auto scrollbar-hide">
 						<div className="flex min-w-full">
