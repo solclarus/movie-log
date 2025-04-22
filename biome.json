@@ -7,7 +7,14 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules", "dist", ".next", "build", "components/ui/**"]
+		"ignore": [
+			"node_modules",
+			"dist",
+			".next",
+			"build",
+			"components/ui/**",
+			"prisma/generated/zod/*"
+		]
 	},
 	"formatter": {
 		"enabled": true,

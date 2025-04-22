@@ -1,3 +1,4 @@
+import { MovieRecordButtons } from "@/components/buttons";
 import { MovieHero } from "@/components/movie-hero";
 import { MovieTabs } from "@/components/movie-tabs";
 import { getMovie } from "@/lib/tmdb/movie";
@@ -19,6 +20,7 @@ export default async function MovieDetail({ params }: Props) {
 	return (
 		<>
 			<MovieHero movie={movie} />
+			<MovieRecordButtons movie={movie} />
 			<MovieTabs
 				movie={movie}
 				credits={credits}

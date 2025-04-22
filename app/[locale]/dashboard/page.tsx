@@ -4,9 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 
+import { db } from "@/actions/db";
+import { RecordList } from "@/components/record-list";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getMovieTitle } from "../record/page";
 
 export default async function Dashboard() {
 	const session = await auth.api.getSession({
@@ -16,6 +19,43 @@ export default async function Dashboard() {
 	if (!session) {
 		redirect("/");
 	}
+
+	const records = await db.record.findMany({
+		where: {
+			userId: session.user.id,
+		},
+		select: {
+			id: true,
+			userId: true,
+			tmdbMovieId: true,
+			watchDate: true,
+			rating: true,
+			review: true,
+			isPublic: true,
+			venue: true,
+			createdAt: true,
+			updatedAt: true,
+		},
+		orderBy: {
+			watchDate: "desc",
+		},
+	});
+
+	// Enrich records with movie titles
+	const recordsWithTitles = await Promise.all(
+		records.map(async (record) => {
+			const movieTitle = await getMovieTitle(record.tmdbMovieId);
+			return {
+				...record,
+				movieTitle,
+				// Convert dates to strings for the component
+				watchDate: record.watchDate.toISOString(),
+				createdAt: record.createdAt.toISOString(),
+				updatedAt: record.updatedAt.toISOString(),
+			};
+		}),
+	);
+
 	return (
 		<div>
 			<div className="mx-auto mt-20 max-w-3xl">
@@ -74,6 +114,7 @@ export default async function Dashboard() {
 				</Card>
 				<SignOutButton />
 			</div>
+			<RecordList records={recordsWithTitles} />
 		</div>
 	);
 }

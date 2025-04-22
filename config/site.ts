@@ -56,5 +56,19 @@ export const siteConfig = {
 				},
 			],
 		},
+		{
+			title: "Record",
+			icon: UserIcon,
+			items: [
+				{
+					title: "Record",
+					url: "/record",
+				},
+				{
+					title: "Dashboard",
+					url: "/dashboard",
+				},
+			],
+		},
 	],
 };

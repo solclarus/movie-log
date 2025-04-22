@@ -1,5 +1,6 @@
 "use client";
 
+import { addRecord } from "@/actions/record";
 import { Calendar } from "@/components/ui/calendar";
 import {
 	Dialog,
@@ -24,6 +25,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import type { MovieDetails } from "@/types/tmdb";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,6 +38,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import { Rating } from "./ui/rating";
 
@@ -43,13 +46,15 @@ type Props = {
 	movie: MovieDetails;
 };
 
-// Create a schema for form validation
+// Create a schema for form validation with updated fields
 const formSchema = z.object({
 	rating: z.number().min(1, "評価を選択してください"),
 	review: z.string().optional(),
 	watchDate: z.date({
 		required_error: "鑑賞日を選択してください",
 	}),
+	venue: z.string().optional(),
+	isPublic: z.boolean().default(true),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -58,6 +63,7 @@ export const MovieRecordButtons = ({ movie }: Props) => {
 	const t = useTranslations("Movie.Detail");
 	const [open, setOpen] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const { data: session } = authClient.useSession();
 
 	// Initialize form with react-hook-form
 	const form = useForm<FormValues>({
@@ -66,12 +72,35 @@ export const MovieRecordButtons = ({ movie }: Props) => {
 			rating: 0,
 			review: "",
 			watchDate: new Date(), // Default to today
+			venue: "",
+			isPublic: true,
 		},
 	});
 
 	const onSubmit = async (values: FormValues) => {
 		try {
 			setIsSubmitting(true);
+
+			// Check if user is logged in
+			if (!session?.user?.id) {
+				toast.error("ログインが必要です");
+				return;
+			}
+
+			// Create the record using server action
+			const result = await addRecord({
+				userId: session.user.id,
+				tmdbMovieId: movie.id,
+				watchDate: values.watchDate,
+				rating: values.rating,
+				review: values.review || null,
+				venue: values.venue || null,
+				isPublic: values.isPublic,
+			});
+
+			if (!result.success) {
+				throw new Error(result.error || "サーバーエラーが発生しました");
+			}
 
 			toast(`${movie.title}`, {
 				description: `${values.watchDate.toLocaleDateString("ja-JP")}の鑑賞記録を投稿しました`,
@@ -178,6 +207,24 @@ export const MovieRecordButtons = ({ movie }: Props) => {
 
 							<FormField
 								control={form.control}
+								name="venue"
+								render={({ field }) => (
+									<FormItem className="flex flex-col gap-2">
+										<FormLabel>鑑賞場所</FormLabel>
+										<FormControl>
+											<Input
+												placeholder="映画館、自宅など..."
+												{...field}
+												value={field.value || ""}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
 								name="review"
 								render={({ field }) => (
 									<FormItem className="flex flex-col gap-2">
@@ -186,8 +233,27 @@ export const MovieRecordButtons = ({ movie }: Props) => {
 											<Input
 												placeholder="映画の感想を書いてください..."
 												{...field}
+												value={field.value || ""}
 											/>
 										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="isPublic"
+								render={({ field }) => (
+									<FormItem className="flex flex-row items-center gap-2 space-y-0">
+										<FormControl>
+											<Checkbox
+												checked={field.value}
+												onCheckedChange={field.onChange}
+												id="isPublic"
+											/>
+										</FormControl>
+										<FormLabel htmlFor="isPublic">公開設定</FormLabel>
 										<FormMessage />
 									</FormItem>
 								)}

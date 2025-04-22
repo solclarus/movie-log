@@ -1,6 +1,3 @@
 {
-  "recommendations": [
-    "biomejs.biome", 
-    "Prisma.prisma",
-  ]
+	"recommendations": ["biomejs.biome", "Prisma.prisma"]
 }
